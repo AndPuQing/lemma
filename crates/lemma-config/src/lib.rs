@@ -20,7 +20,7 @@
 //!
 //! - Contains `Option<T>` for all values (may be unspecified)
 //! - Maps 1:1 with CLI flags from `lemma-cli`
-//! - Created by converting from `lemma_cli::GlobalArgs`
+//! - Created by converting from `lemma_args::GlobalArgs`
 //! - Used only as input to settings resolution
 //!
 //! ### 2. [`Config`]

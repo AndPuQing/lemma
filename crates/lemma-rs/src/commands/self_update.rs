@@ -6,7 +6,7 @@ use lemma_output::Printer;
 use std::env;
 use std::fs;
 
-const PACKAGE_NAME: &str = "lemma";
+const PACKAGE_NAME: &str = "lemma-lean";
 
 pub fn update(settings: &GlobalSettings, printer: &Printer) -> Result<()> {
     printer.header("Update lemma")?;
@@ -21,10 +21,10 @@ pub fn update(settings: &GlobalSettings, printer: &Printer) -> Result<()> {
         }
     }
 
-    printer.list_item("Recommended: pipx upgrade lemma")?;
-    printer.list_item("Fallback: python -m pip install --user --upgrade lemma")?;
-    printer.list_item("Windows fallback: py -m pip install --user --upgrade lemma")?;
-    printer.list_item("Source install: cargo install lemma --force")?;
+    printer.list_item("Recommended: pipx upgrade lemma-lean")?;
+    printer.list_item("Fallback: python -m pip install --user --upgrade lemma-lean")?;
+    printer.list_item("Windows fallback: py -m pip install --user --upgrade lemma-lean")?;
+    printer.list_item("crates.io install: cargo install lemma-rs --force")?;
 
     printer.success("Run the command that matches how you installed lemma.")?;
     printer.warning(
@@ -90,8 +90,8 @@ pub fn uninstall(skip_confirm: bool, settings: &GlobalSettings, printer: &Printe
     }
 
     printer.success("Removed lemma-managed data")?;
-    printer.list_item("To remove the Python package: pipx uninstall lemma")?;
-    printer.list_item("Or, if installed with pip: python -m pip uninstall lemma")?;
+    printer.list_item("To remove the Python package: pipx uninstall lemma-lean")?;
+    printer.list_item("Or, if installed with pip: python -m pip uninstall lemma-lean")?;
 
     Ok(())
 }

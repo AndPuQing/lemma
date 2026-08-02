@@ -4,7 +4,7 @@ use anyhow::{Context, Result};
 use std::env;
 use std::path::PathBuf;
 
-use lemma_cli::OverrideCommands;
+use lemma_args::OverrideCommands;
 use lemma_config::Config;
 use lemma_config::GlobalSettings;
 use lemma_output::Printer;

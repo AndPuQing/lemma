@@ -20,7 +20,7 @@ pub mod upgrade;
 pub mod which;
 
 use anyhow::Result;
-use lemma_cli::{Commands, SelfCommands, ToolchainCommands};
+use lemma_args::{Commands, SelfCommands, ToolchainCommands};
 use lemma_config::{Config, GlobalSettings};
 use lemma_output::Printer;
 

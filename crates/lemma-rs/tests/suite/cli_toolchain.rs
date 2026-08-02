@@ -188,8 +188,8 @@ fn test_self_update_shows_package_manager_guidance() {
 
     let result = ctx.run(&["self", "update"]);
     result.assert_success();
-    result.assert_stdout_contains("pipx upgrade lemma");
-    result.assert_stdout_contains("python -m pip install --user --upgrade lemma");
+    result.assert_stdout_contains("pipx upgrade lemma-lean");
+    result.assert_stdout_contains("python -m pip install --user --upgrade lemma-lean");
     result.assert_stdout_not_contains(&format!("{}{}", "lemma.", "puqing.work"));
     result.assert_stdout_not_contains(&format!("{}{}", "manifests/", "stable.toml"));
 }

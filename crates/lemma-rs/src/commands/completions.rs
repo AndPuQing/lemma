@@ -4,7 +4,7 @@ use anyhow::Result;
 use clap::CommandFactory;
 use clap_complete::{generate, Shell};
 
-use lemma_cli::Cli;
+use lemma_args::Cli;
 use lemma_config::GlobalSettings;
 use lemma_output::Printer;
 

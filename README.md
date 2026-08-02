@@ -1,10 +1,10 @@
 # Lemma - A Modern Lean4 Toolchain Manager
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/LeanOxide/lemma/ci.yml?style=flat-square&logo=github)
-![PyPI Version](https://img.shields.io/pypi/v/lemma?style=flat-square&logo=pypi)
-![PyPI Downloads](https://img.shields.io/pypi/dm/lemma?style=flat-square&logo=pypi)
+![PyPI Version](https://img.shields.io/pypi/v/lemma-lean?style=flat-square&logo=pypi)
+![PyPI Downloads](https://img.shields.io/pypi/dm/lemma-lean?style=flat-square&logo=pypi)
 [![dependency status](https://deps.rs/repo/github/LeanOxide/lemma/status.svg?style=flat-square)](https://deps.rs/repo/github/LeanOxide/lemma)
-![PyPI License](https://img.shields.io/pypi/l/lemma?style=flat-square)
+![PyPI License](https://img.shields.io/pypi/l/lemma-lean?style=flat-square)
 [![codecov](https://codecov.io/github/LeanOxide/lemma/graph/badge.svg)](https://codecov.io/github/LeanOxide/lemma)
 
 [English](README.md) | [简体中文](README_CN.md)
@@ -47,24 +47,34 @@ GitHub release assets.
 
 ## Installation
 
-### Quick Install (Recommended)
+The command-line executable is always named `lemma`, regardless of how you install it.
 
-Install Lemma as a Python package. The package name and command are both `lemma`.
+### From PyPI (Recommended)
+
+Install Lemma as a Python package named `lemma-lean`:
 
 ```bash
-pipx install lemma
+pipx install lemma-lean
 ```
 
 If you do not use `pipx`, install with Python's user site instead:
 
 ```bash
-python -m pip install --user lemma
+python -m pip install --user lemma-lean
 ```
 
 On Windows, use the Python launcher if needed:
 
 ```powershell
-py -m pip install --user lemma
+py -m pip install --user lemma-lean
+```
+
+### From crates.io
+
+If you have a Rust toolchain installed, you can also install the `lemma-rs` crate, which provides the same `lemma` executable:
+
+```bash
+cargo install lemma-rs
 ```
 
 After installation, run a setup command such as `lemma toolchain install stable`. Lemma will create proxy commands such as `lean`, `lake`, and `leanc` under `~/.lemma/bin`. Add that directory to your `PATH` if you want to call those proxies directly.
@@ -73,7 +83,7 @@ After installation, run a setup command such as `lemma toolchain install stable`
 
 ```bash
 # Build from source
-cargo build --release -p lemma
+cargo build --release -p lemma-rs
 
 # Install the CLI from this checkout
 cargo install --path crates/lemma-rs
@@ -84,9 +94,11 @@ cargo install --path crates/lemma-rs
 Use the same package manager that installed Lemma:
 
 ```bash
-pipx upgrade lemma
+pipx upgrade lemma-lean
 # or
-python -m pip install --user --upgrade lemma
+python -m pip install --user --upgrade lemma-lean
+# or, for a crates.io install
+cargo install lemma-rs
 ```
 
 `lemma self update` prints these safe package-manager commands instead of replacing the running binary directly.
