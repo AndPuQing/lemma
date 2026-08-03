@@ -3,6 +3,7 @@ name = "lemma-toolchain"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
+description = "Toolchain management for Lemma"
 license.workspace = true
 
 [dependencies]

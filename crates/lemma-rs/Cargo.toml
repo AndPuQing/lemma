@@ -6,6 +6,7 @@ license.workspace = true
 authors.workspace = true
 repository.workspace = true
 default-run = "lemma"
+description = "A modern Lean4 toolchain manager"
 
 [[bin]]
 name = "lemma"

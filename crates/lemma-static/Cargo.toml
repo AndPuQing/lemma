@@ -5,3 +5,4 @@ edition = { workspace = true }
 repository = { workspace = true }
 authors = { workspace = true }
 license = { workspace = true }
+description = "Environment variables and constants used by Lemma"
