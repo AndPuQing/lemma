@@ -36,5 +36,6 @@ Issues = "https://github.com/LeanOxide/lemma/issues"
 
 [tool.maturin]
 bindings = "bin"
+include = ["LICENSE*"]
 manifest-path = "crates/lemma-rs/Cargo.toml"
 strip = true
