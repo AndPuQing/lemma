@@ -42,9 +42,8 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --locked --out dist
+          args: --release --locked --out dist ${{ matrix.zig && '--zig' || '' }}
           manylinux: ${{ matrix.manylinux || 'auto' }}
-          zig: ${{ matrix.zig || 'false' }}
           sccache: true
 
       - name: Upload wheel artifact
