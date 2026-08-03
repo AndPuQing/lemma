@@ -22,6 +22,7 @@ jobs:
           - os: ubuntu-latest
             target: aarch64
             manylinux: auto
+            zig: true
           - os: macos-latest
             target: x86_64
           - os: macos-latest
@@ -43,6 +44,7 @@ jobs:
           target: ${{ matrix.target }}
           args: --release --locked --out dist
           manylinux: ${{ matrix.manylinux || 'auto' }}
+          zig: ${{ matrix.zig || 'false' }}
           sccache: true
 
       - name: Upload wheel artifact
