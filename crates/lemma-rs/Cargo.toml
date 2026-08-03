@@ -1,5 +1,5 @@
 [package]
-name = "lemma"
+name = "lemma-rs"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -13,11 +13,11 @@ path = "src/main.rs"
 
 [[test]]
 name = "integration_tests"
-path = "../../tests/integration_tests.rs"
+path = "tests/integration_tests.rs"
 
 [dependencies]
 # Internal crates
-lemma-cli.workspace = true
+lemma-args.workspace = true
 lemma-static.workspace = true
 lemma-config.workspace = true
 lemma-toolchain.workspace = true

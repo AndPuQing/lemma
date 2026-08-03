@@ -35,24 +35,34 @@ release_asset_url_prefix = "https://mirror.example.com"
 
 ## 安装
 
-### 快速安装（推荐）
+无论通过哪种方式安装，可执行文件名始终为 `lemma`。
 
-Lemma 现在通过 Python 包发布，包名和命令名都是 `lemma`。
+### 从 PyPI 安装（推荐）
+
+Lemma 以名为 `lemma-lean` 的 Python 包发布：
 
 ```bash
-pipx install lemma
+pipx install lemma-lean
 ```
 
 如果不使用 `pipx`，可以使用 Python user site 安装：
 
 ```bash
-python -m pip install --user lemma
+python -m pip install --user lemma-lean
 ```
 
 Windows 可以使用 Python launcher：
 
 ```powershell
-py -m pip install --user lemma
+py -m pip install --user lemma-lean
+```
+
+### 从 crates.io 安装
+
+如果已经安装了 Rust 工具链，也可以安装 `lemma-rs` crate，它提供相同的 `lemma` 可执行文件：
+
+```bash
+cargo install lemma-rs
 ```
 
 安装后，运行 `lemma toolchain install stable` 等初始化命令。Lemma 会在 `~/.lemma/bin` 下创建 `lean`、`lake`、`leanc` 等代理命令；如果希望直接运行这些代理命令，请把该目录加入 `PATH`。
@@ -61,7 +71,7 @@ py -m pip install --user lemma
 
 ```bash
 # 构建发布版本
-cargo build --release -p lemma
+cargo build --release -p lemma-rs
 
 # 从当前源码安装 CLI
 cargo install --path crates/lemma-rs
@@ -72,9 +82,11 @@ cargo install --path crates/lemma-rs
 使用安装 Lemma 时的同一个包管理器更新：
 
 ```bash
-pipx upgrade lemma
+pipx upgrade lemma-lean
 # 或
-python -m pip install --user --upgrade lemma
+python -m pip install --user --upgrade lemma-lean
+# 或（crates.io 安装方式）
+cargo install lemma-rs
 ```
 
 `lemma self update` 会显示这些安全的包管理器更新命令，不会直接覆盖当前正在运行的二进制文件。

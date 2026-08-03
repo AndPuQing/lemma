@@ -293,21 +293,26 @@ pub static SELF_HELP: &str = r"DISCUSSION:
 pub static SELF_UPDATE_HELP: &str = r"DISCUSSION:
     Shows safe package-manager commands for upgrading lemma.
 
-    Lemma is distributed as the `lemma` Python package. This command does not
-    download archives or replace the running executable directly, because pipx,
-    pip, and other package managers own those installed files.
+    Lemma is distributed as the `lemma-lean` Python package (and also as the
+    `lemma-rs` crate on crates.io). This command does not download archives or
+    replace the running executable directly, because pipx, pip, cargo, and other
+    package managers own those installed files.
 
     Recommended:
 
-        $ pipx upgrade lemma
+        $ pipx upgrade lemma-lean
 
     Fallback:
 
-        $ python -m pip install --user --upgrade lemma
+        $ python -m pip install --user --upgrade lemma-lean
 
     Windows fallback:
 
-        PS C:\> py -m pip install --user --upgrade lemma";
+        PS C:\> py -m pip install --user --upgrade lemma-lean
+
+    crates.io install:
+
+        $ cargo install lemma-rs --force";
 
 pub static SELF_UNINSTALL_HELP: &str = r"DISCUSSION:
     Removes lemma-managed data. This will remove:
@@ -316,8 +321,8 @@ pub static SELF_UNINSTALL_HELP: &str = r"DISCUSSION:
     - The entire ~/.lemma directory
 
     It does not uninstall the Python package or remove package-manager owned
-    executables. Use `pipx uninstall lemma` or `python -m pip uninstall lemma`
-    for that.
+    executables. Use `pipx uninstall lemma-lean` or
+    `python -m pip uninstall lemma-lean` for that.
 
     Example:
 

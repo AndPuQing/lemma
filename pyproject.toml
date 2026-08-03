@@ -3,8 +3,8 @@ requires = ["maturin>=1.7,<2"]
 build-backend = "maturin"
 
 [project]
-name = "lemma"
-version = "0.1.5"
+name = "lemma-lean"
+version = "0.2.0"
 description = "A modern Lean4 toolchain manager"
 readme = "README.md"
 requires-python = ">=3.8"

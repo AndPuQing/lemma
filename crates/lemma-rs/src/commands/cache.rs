@@ -5,7 +5,7 @@ use std::fs;
 use std::io::{self, Write};
 use std::path::Path;
 
-use lemma_cli::cli::CacheCommands;
+use lemma_args::cli::CacheCommands;
 use lemma_config::{Config, GlobalSettings};
 use lemma_output::Printer;
 

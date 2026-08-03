@@ -23,14 +23,14 @@ impl LemmaTestContext {
         let bin_dir = lemma_home.join("bin");
         let toolchains_dir = lemma_home.join("toolchains");
 
-        // Get the path to the lemma executable
-        let lemma_exe = env::current_exe()
-            .expect("Failed to get current exe")
-            .parent()
-            .expect("Failed to get parent dir")
-            .parent()
-            .expect("Failed to get grandparent dir")
-            .join("lemma");
+        // Cargo sets CARGO_BIN_EXE_<name> to the absolute path of the `lemma`
+        // binary it builds for this integration test, and guarantees that binary
+        // is built before the test runs. This is robust across toolchains and
+        // platforms. The previous approach of walking up from `current_exe()`
+        // broke on nightly, which places the test binary under
+        // `target/debug/build/.../out/` instead of `target/debug/deps/`, so the
+        // guessed `target/debug/lemma` path did not exist.
+        let lemma_exe = PathBuf::from(env!("CARGO_BIN_EXE_lemma"));
 
         Self {
             temp_dir,

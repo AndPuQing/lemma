@@ -31,7 +31,7 @@ mod commands;
 use anyhow::Result;
 use clap::Parser;
 use colored::Colorize;
-use lemma_cli::Cli;
+use lemma_args::Cli;
 use lemma_config::GlobalSettings;
 use std::path::PathBuf;
 
