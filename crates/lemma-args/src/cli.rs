@@ -69,13 +69,13 @@ pub struct GlobalArgs {
     /// Disable colors.
     ///
     /// Provided for compatibility with other tools, use `--color never` instead.
-    #[arg(
-        global = true,
-        long,
-        hide = true,
-        conflicts_with = "color",
-        env = EnvVars::NO_COLOR
-    )]
+    ///
+    /// Note: the `NO_COLOR` environment variable is intentionally *not*
+    /// bound to this flag: the de-facto NO_COLOR convention (no-color.org)
+    /// treats the variable as "present means enabled" and ignores its value
+    /// (commonly empty or `1`), which clap's bool env parsing would reject.
+    /// The presence check happens when building [`CliArgs`].
+    #[arg(global = true, long, hide = true, conflicts_with = "color")]
     pub no_color: bool,
 
     /// Control the use of color in output.
@@ -97,7 +97,9 @@ impl From<&GlobalArgs> for lemma_config::CliArgs {
         Self {
             quiet: args.quiet,
             verbose: args.verbose,
-            no_color: args.no_color,
+            // NO_COLOR follows the no-color.org convention: any value (or
+            // none) counts as enabled, so check presence rather than parsing.
+            no_color: args.no_color || std::env::var_os(EnvVars::NO_COLOR).is_some(),
             color: args.color,
         }
     }
@@ -310,4 +312,65 @@ pub enum CacheCommands {
         #[arg(short = 'y', long)]
         yes: bool,
     },
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    static ENV_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
+    fn with_no_color_var<T>(value: Option<&str>, f: impl FnOnce() -> T) -> T {
+        let _guard = ENV_LOCK.lock().unwrap();
+        let key = EnvVars::NO_COLOR;
+        let previous = std::env::var_os(key);
+        match value {
+            Some(v) => std::env::set_var(key, v),
+            None => std::env::remove_var(key),
+        }
+        let result = f();
+        match previous {
+            Some(v) => std::env::set_var(key, v),
+            None => std::env::remove_var(key),
+        }
+        result
+    }
+
+    /// NO_COLOR follows the no-color.org convention: any value (including the
+    /// common `1` or an empty string) counts as enabled. clap's bool env
+    /// parsing rejects `1`, so the variable must be checked for presence.
+    #[test]
+    fn test_no_color_env_any_value_enables() {
+        let args = GlobalArgs {
+            quiet: 0,
+            verbose: 0,
+            no_color: false,
+            color: None,
+        };
+        for value in ["1", "", "true", "always"] {
+            let converted = with_no_color_var(Some(value), || lemma_config::CliArgs::from(&args));
+            assert!(
+                converted.no_color,
+                "NO_COLOR={value:?} should enable no_color"
+            );
+        }
+        let converted = with_no_color_var(None, || lemma_config::CliArgs::from(&args));
+        assert!(
+            !converted.no_color,
+            "unset NO_COLOR should not enable no_color"
+        );
+    }
+
+    /// The explicit --no-color flag still wins regardless of the env var.
+    #[test]
+    fn test_no_color_flag_wins_over_env() {
+        let args = GlobalArgs {
+            quiet: 0,
+            verbose: 0,
+            no_color: true,
+            color: None,
+        };
+        let converted = with_no_color_var(Some("0"), || lemma_config::CliArgs::from(&args));
+        assert!(converted.no_color);
+    }
 }
